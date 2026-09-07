@@ -1,0 +1,162 @@
+# ============================================================================
+# RCA Agent — Ticket Generator Config
+# ============================================================================
+# This file is the single source of truth for "Layer 1" baseline physics:
+# queue/persona/vertical/modality structure + baseline distributions.
+# Scenario injections (Layer 2) live in generator/scenarios.py and reference
+# these baseline values by queue key — they never hardcode numbers that
+# duplicate what's here.
+#
+# Edit this file to change the shape of the world; edit scenarios.py to
+# change what "happens" in a given month.
+# ============================================================================
+
+global_settings:
+  random_seed: 42               # base seed; each month uses seed + month_index for reproducibility
+  baseline_total_tickets: 30000  # target ticket count for the control month (Month 1)
+  days_in_month: 30
+  shift_length_hours: 8          # agent shift length used by the staffing simulator
+  csat_base_response_rate: 0.30  # probability a RESOLVED ticket receives a csat_score (survey response)
+  csat_unresolved_response_multiplier: 0.4  # unresolved tickets are less likely to get a response
+  csat_unresolved_score_penalty: 1           # if an unresolved ticket *does* get a score, shift distribution toward lower stars by this many buckets (soft)
+  resolved_rate: 0.94             # baseline probability a ticket is marked resolved (before queue-level noise)
+
+# ----------------------------------------------------------------------------
+# Verticals & personas
+# ----------------------------------------------------------------------------
+verticals:
+  Mobility:
+    personas: [Rider, Driver]
+  Delivery:
+    personas: [Eater, Driver, Merchant]
+
+modalities: [Phone, Chat, Email]
+
+# ----------------------------------------------------------------------------
+# Queues
+# ----------------------------------------------------------------------------
+# valid_pairs: list of [vertical, persona] combinations that may route to this
+#              queue. A ticket's (vertical, persona) is drawn first, then the
+#              queue is drawn conditional on being valid for that pair.
+# base_volume_share: this queue's share of total ticket volume in the
+#              baseline month (Month 1). Shares across all queues sum to 1.0.
+# baseline_aht_seconds: mean handle time (Layer-1 physics), used as the
+#              lognormal mean; actual draws have variance per aht_cv.
+# aht_cv: coefficient of variation (std/mean) for the handle-time lognormal.
+# csat_distribution: baseline P(score=1..5), sums to 1.0.
+# modality_mix: baseline P(Phone/Chat/Email), sums to 1.0.
+# utilization_target: fraction of scheduled agent-hours expected to be
+#              productive; drives how many agents are staffed for a given
+#              realized workload (see generator/staffing.py).
+# persona_weights: optional relative weight of each valid pair within the
+#              queue (defaults to equal split if omitted).
+queues:
+  account_login:
+    display_name: "Account & Login"
+    valid_pairs: [[Mobility, Rider], [Mobility, Driver], [Delivery, Eater], [Delivery, Driver], [Delivery, Merchant]]
+    base_volume_share: 0.204
+    baseline_aht_seconds: 150
+    aht_cv: 0.45
+    csat_distribution: [0.05, 0.07, 0.13, 0.30, 0.45]
+    modality_mix: {Phone: 0.15, Chat: 0.45, Email: 0.40}
+    utilization_target: 0.82
+
+  trip_issues:
+    display_name: "Trip Issues"
+    valid_pairs: [[Mobility, Rider], [Mobility, Driver]]
+    base_volume_share: 0.136
+    baseline_aht_seconds: 210
+    aht_cv: 0.45
+    csat_distribution: [0.08, 0.10, 0.17, 0.30, 0.35]
+    modality_mix: {Phone: 0.20, Chat: 0.65, Email: 0.15}
+    utilization_target: 0.80
+
+  order_issues:
+    display_name: "Order Issues"
+    valid_pairs: [[Delivery, Eater], [Delivery, Driver], [Delivery, Merchant]]
+    base_volume_share: 0.136
+    baseline_aht_seconds: 210
+    aht_cv: 0.45
+    csat_distribution: [0.08, 0.10, 0.17, 0.30, 0.35]
+    modality_mix: {Phone: 0.20, Chat: 0.65, Email: 0.15}
+    utilization_target: 0.80
+
+  refunds_disputes:
+    display_name: "Refunds & Disputes"
+    valid_pairs: [[Delivery, Eater], [Delivery, Merchant]]
+    base_volume_share: 0.136
+    baseline_aht_seconds: 270
+    aht_cv: 0.50
+    csat_distribution: [0.12, 0.13, 0.20, 0.28, 0.27]
+    modality_mix: {Phone: 0.15, Chat: 0.60, Email: 0.25}
+    utilization_target: 0.78
+
+  payments_billing:
+    display_name: "Payments & Billing"
+    valid_pairs: [[Mobility, Driver], [Delivery, Driver], [Delivery, Merchant]]
+    base_volume_share: 0.102
+    baseline_aht_seconds: 330
+    aht_cv: 0.50
+    csat_distribution: [0.14, 0.14, 0.20, 0.27, 0.25]
+    modality_mix: {Phone: 0.45, Chat: 0.40, Email: 0.15}
+    utilization_target: 0.78
+
+  technical_app_support:
+    display_name: "Technical/App Support"
+    valid_pairs: [[Mobility, Rider], [Mobility, Driver], [Delivery, Eater], [Delivery, Driver], [Delivery, Merchant]]
+    base_volume_share: 0.068
+    baseline_aht_seconds: 420
+    aht_cv: 0.55
+    csat_distribution: [0.09, 0.11, 0.18, 0.29, 0.33]
+    modality_mix: {Phone: 0.15, Chat: 0.45, Email: 0.40}
+    utilization_target: 0.75
+
+  onboarding_activation:
+    display_name: "Onboarding/Activation"
+    valid_pairs: [[Mobility, Driver], [Delivery, Driver]]
+    base_volume_share: 0.068
+    baseline_aht_seconds: 540
+    aht_cv: 0.50
+    csat_distribution: [0.06, 0.08, 0.15, 0.31, 0.40]
+    modality_mix: {Phone: 0.65, Chat: 0.20, Email: 0.15}
+    utilization_target: 0.75
+
+  merchant_operations:
+    display_name: "Merchant Operations"
+    valid_pairs: [[Delivery, Merchant]]
+    base_volume_share: 0.068
+    baseline_aht_seconds: 600
+    aht_cv: 0.50
+    csat_distribution: [0.08, 0.10, 0.17, 0.30, 0.35]
+    modality_mix: {Phone: 0.40, Chat: 0.15, Email: 0.45}
+    utilization_target: 0.75
+
+  vehicle_equipment:
+    display_name: "Vehicle/Equipment"
+    valid_pairs: [[Mobility, Driver]]
+    base_volume_share: 0.034
+    baseline_aht_seconds: 810
+    aht_cv: 0.55
+    csat_distribution: [0.13, 0.14, 0.20, 0.28, 0.25]
+    modality_mix: {Phone: 0.70, Chat: 0.15, Email: 0.15}
+    utilization_target: 0.72
+
+  fraud_risk:
+    display_name: "Fraud & Risk"
+    valid_pairs: [[Mobility, Driver], [Delivery, Driver], [Delivery, Merchant], [Delivery, Eater]]
+    base_volume_share: 0.034
+    baseline_aht_seconds: 1050
+    aht_cv: 0.60
+    csat_distribution: [0.15, 0.15, 0.20, 0.26, 0.24]
+    modality_mix: {Phone: 0.70, Chat: 0.15, Email: 0.15}
+    utilization_target: 0.70
+
+  safety_incidents:
+    display_name: "Safety & Incidents"
+    valid_pairs: [[Mobility, Rider], [Mobility, Driver], [Delivery, Eater], [Delivery, Driver]]
+    base_volume_share: 0.014
+    baseline_aht_seconds: 1500
+    aht_cv: 0.60
+    csat_distribution: [0.12, 0.13, 0.19, 0.28, 0.28]
+    modality_mix: {Phone: 0.75, Chat: 0.15, Email: 0.10}
+    utilization_target: 0.65

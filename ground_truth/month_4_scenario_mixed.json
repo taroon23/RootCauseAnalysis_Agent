@@ -1,0 +1,516 @@
+{
+  "month_key": "month_4_scenario_mixed",
+  "month_label": "2026-04",
+  "scenario_type": "mixed",
+  "description": "Mixed: the same mix-shift direction as Month 2 (half magnitude) happens simultaneously with a genuine handle-time/CSAT change in Payments & Billing (a new fraud-check step). The Payments & Billing handle-time multiplier is analytically calibrated so the resulting AHT bridge is EXACTLY 60% mix-shift / 40% genuine-change. A +4% overall volume growth is layered on for the Total Solves bridge.",
+  "compared_against": "month_1_baseline",
+  "injected_effects": {
+    "volume_share_deltas": {
+      "account_login": -0.015,
+      "trip_issues": -0.0075,
+      "order_issues": -0.0075,
+      "safety_incidents": 0.01,
+      "fraud_risk": 0.01,
+      "vehicle_equipment": 0.01
+    },
+    "overall_growth_rate": 0.04,
+    "genuine_changes": [
+      {
+        "queue": "payments_billing",
+        "handle_time_mean_multiplier": 1.5585264408793822,
+        "handle_time_mean_pct_change": 0.5585264408793822,
+        "csat_shift_amount": 0.08,
+        "resolved_rate_delta": -0.03
+      }
+    ],
+    "calibration": {
+      "target_kpi": "AHT",
+      "target_queue": "payments_billing",
+      "target_mix_share": 0.6,
+      "note": "Only AHT is exactly calibrated to this split. TPH/CSAT/Total-Solves splits below are the ANALYTICALLY-derived consequence of the same injected deltas, not separately targeted -- see docs/step1_summary.md."
+    }
+  },
+  "expected_decomposition": {
+    "AHT_seconds": {
+      "old_blended": 348.42,
+      "new_blended": 395.42,
+      "total_delta": 47.0,
+      "mix_component": 28.200000000000003,
+      "genuine_component": 18.800000000000004,
+      "mix_pct_of_total": 0.6000000000000001,
+      "genuine_pct_of_total": 0.4000000000000001,
+      "per_queue": {
+        "account_login": {
+          "old_value": 150.0,
+          "new_value": 150.0,
+          "old_weight": 0.204,
+          "new_weight": 0.189,
+          "mix_contribution": -2.249999999999998,
+          "genuine_contribution": 0.0
+        },
+        "trip_issues": {
+          "old_value": 210.0,
+          "new_value": 210.0,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -1.5750000000000015,
+          "genuine_contribution": 0.0
+        },
+        "order_issues": {
+          "old_value": 210.0,
+          "new_value": 210.0,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -1.5750000000000015,
+          "genuine_contribution": 0.0
+        },
+        "refunds_disputes": {
+          "old_value": 270.0,
+          "new_value": 270.0,
+          "old_weight": 0.136,
+          "new_weight": 0.136,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "payments_billing": {
+          "old_value": 330.0,
+          "new_value": 514.3137254901961,
+          "old_weight": 0.102,
+          "new_weight": 0.102,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 18.800000000000004
+        },
+        "technical_app_support": {
+          "old_value": 420.0,
+          "new_value": 420.0,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "onboarding_activation": {
+          "old_value": 540.0,
+          "new_value": 540.0,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "merchant_operations": {
+          "old_value": 600.0,
+          "new_value": 600.0,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "vehicle_equipment": {
+          "old_value": 810.0,
+          "new_value": 810.0,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 8.100000000000001,
+          "genuine_contribution": 0.0
+        },
+        "fraud_risk": {
+          "old_value": 1050.0,
+          "new_value": 1050.0,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 10.500000000000002,
+          "genuine_contribution": 0.0
+        },
+        "safety_incidents": {
+          "old_value": 1500.0,
+          "new_value": 1500.0,
+          "old_weight": 0.014,
+          "new_weight": 0.024,
+          "mix_contribution": 15.0,
+          "genuine_contribution": 0.0
+        }
+      }
+    },
+    "TPH_tickets_per_agent_hour": {
+      "old_blended": 7.7931265257630296,
+      "new_blended": 6.809236706407432,
+      "total_delta": -0.9838898193555972,
+      "mix_component": -0.595969667596628,
+      "genuine_component": -0.387920151758969,
+      "mix_pct_of_total": 0.6057280560001737,
+      "genuine_pct_of_total": 0.39427194399982607,
+      "per_queue": {
+        "account_login": {
+          "old_value": 19.68,
+          "new_value": 19.68,
+          "old_weight": 0.08078240910851921,
+          "new_weight": 0.06539358422312017,
+          "mix_contribution": -0.3028520737446531,
+          "genuine_contribution": 0.0
+        },
+        "trip_issues": {
+          "old_value": 13.714285714285714,
+          "new_value": 13.714285714285714,
+          "old_weight": 0.07728183804715004,
+          "new_weight": 0.06380112934805712,
+          "mix_contribution": -0.18487829073041712,
+          "genuine_contribution": 0.0
+        },
+        "order_issues": {
+          "old_value": 13.714285714285714,
+          "new_value": 13.714285714285714,
+          "old_weight": 0.07728183804715004,
+          "new_weight": 0.06380112934805712,
+          "mix_contribution": -0.18487829073041712,
+          "genuine_contribution": 0.0
+        },
+        "refunds_disputes": {
+          "old_value": 10.4,
+          "new_value": 10.4,
+          "old_weight": 0.10191011610613192,
+          "new_weight": 0.08904386462225104,
+          "mix_contribution": -0.1338090154323611,
+          "genuine_contribution": 0.0
+        },
+        "payments_billing": {
+          "old_value": 8.50909090909091,
+          "new_value": 5.459702630575676,
+          "old_weight": 0.0934176064306209,
+          "new_weight": 0.12721244929420722,
+          "mix_contribution": 0.2875633901846982,
+          "genuine_contribution": -0.387920151758969
+        },
+        "technical_app_support": {
+          "old_value": 6.428571428571429,
+          "new_value": 6.428571428571429,
+          "old_weight": 0.08243396058362672,
+          "new_weight": 0.0720265927166653,
+          "mix_contribution": -0.06690450771618056,
+          "genuine_contribution": 0.0
+        },
+        "onboarding_activation": {
+          "old_value": 5.0,
+          "new_value": 5.0,
+          "old_weight": 0.1059865207503772,
+          "new_weight": 0.0926056192071411,
+          "mix_contribution": -0.06690450771618055,
+          "genuine_contribution": 0.0
+        },
+        "merchant_operations": {
+          "old_value": 4.5,
+          "new_value": 4.5,
+          "old_weight": 0.11776280083375244,
+          "new_weight": 0.10289513245237898,
+          "mix_contribution": -0.06690450771618058,
+          "genuine_contribution": 0.0
+        },
+        "vehicle_equipment": {
+          "old_value": 3.2,
+          "new_value": 3.2,
+          "old_weight": 0.0828019693362322,
+          "new_weight": 0.09362700471310219,
+          "mix_contribution": 0.03464011320598397,
+          "genuine_contribution": 0.0
+        },
+        "fraud_risk": {
+          "old_value": 2.4,
+          "new_value": 2.4,
+          "old_weight": 0.11040262578164292,
+          "new_weight": 0.12483600628413628,
+          "mix_contribution": 0.03464011320598407,
+          "genuine_contribution": 0.0
+        },
+        "safety_incidents": {
+          "old_value": 1.56,
+          "new_value": 1.56,
+          "old_weight": 0.06993831497479641,
+          "new_weight": 0.10475748779088356,
+          "mix_contribution": 0.05431790959309596,
+          "genuine_contribution": 0.0
+        }
+      }
+    },
+    "csat_1star_pct": {
+      "old_blended": 0.08940000000000001,
+      "new_blended": 0.09553,
+      "total_delta": 0.0061299999999999966,
+      "mix_component": 0.0020499999999999997,
+      "genuine_component": 0.00408,
+      "mix_pct_of_total": 0.3344208809135401,
+      "genuine_pct_of_total": 0.6655791190864605,
+      "per_queue": {
+        "account_login": {
+          "old_value": 0.05,
+          "new_value": 0.05,
+          "old_weight": 0.204,
+          "new_weight": 0.189,
+          "mix_contribution": -0.0007499999999999994,
+          "genuine_contribution": 0.0
+        },
+        "trip_issues": {
+          "old_value": 0.08,
+          "new_value": 0.08,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -0.0006000000000000006,
+          "genuine_contribution": 0.0
+        },
+        "order_issues": {
+          "old_value": 0.08,
+          "new_value": 0.08,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -0.0006000000000000006,
+          "genuine_contribution": 0.0
+        },
+        "refunds_disputes": {
+          "old_value": 0.12,
+          "new_value": 0.12,
+          "old_weight": 0.136,
+          "new_weight": 0.136,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "payments_billing": {
+          "old_value": 0.14,
+          "new_value": 0.18000000000000002,
+          "old_weight": 0.102,
+          "new_weight": 0.102,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.00408
+        },
+        "technical_app_support": {
+          "old_value": 0.09,
+          "new_value": 0.09,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "onboarding_activation": {
+          "old_value": 0.06,
+          "new_value": 0.06,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "merchant_operations": {
+          "old_value": 0.08,
+          "new_value": 0.08,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "vehicle_equipment": {
+          "old_value": 0.13,
+          "new_value": 0.13,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 0.0013000000000000004,
+          "genuine_contribution": 0.0
+        },
+        "fraud_risk": {
+          "old_value": 0.15,
+          "new_value": 0.15,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 0.0015000000000000002,
+          "genuine_contribution": 0.0
+        },
+        "safety_incidents": {
+          "old_value": 0.12,
+          "new_value": 0.12,
+          "old_weight": 0.014,
+          "new_weight": 0.024,
+          "mix_contribution": 0.0012,
+          "genuine_contribution": 0.0
+        }
+      }
+    },
+    "csat_5star_pct": {
+      "old_blended": 0.34324,
+      "new_blended": 0.3350169230769231,
+      "total_delta": -0.008223076923076889,
+      "mix_component": -0.004299999999999997,
+      "genuine_component": -0.003923076923076923,
+      "mix_pct_of_total": 0.5229186155285332,
+      "genuine_pct_of_total": 0.4770813844714707,
+      "per_queue": {
+        "account_login": {
+          "old_value": 0.45,
+          "new_value": 0.45,
+          "old_weight": 0.204,
+          "new_weight": 0.189,
+          "mix_contribution": -0.006749999999999994,
+          "genuine_contribution": 0.0
+        },
+        "trip_issues": {
+          "old_value": 0.35,
+          "new_value": 0.35,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -0.0026250000000000023,
+          "genuine_contribution": 0.0
+        },
+        "order_issues": {
+          "old_value": 0.35,
+          "new_value": 0.35,
+          "old_weight": 0.136,
+          "new_weight": 0.1285,
+          "mix_contribution": -0.0026250000000000023,
+          "genuine_contribution": 0.0
+        },
+        "refunds_disputes": {
+          "old_value": 0.27,
+          "new_value": 0.27,
+          "old_weight": 0.136,
+          "new_weight": 0.136,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "payments_billing": {
+          "old_value": 0.25,
+          "new_value": 0.21153846153846154,
+          "old_weight": 0.102,
+          "new_weight": 0.102,
+          "mix_contribution": 0.0,
+          "genuine_contribution": -0.003923076923076923
+        },
+        "technical_app_support": {
+          "old_value": 0.33,
+          "new_value": 0.33,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "onboarding_activation": {
+          "old_value": 0.4,
+          "new_value": 0.4,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "merchant_operations": {
+          "old_value": 0.35,
+          "new_value": 0.35,
+          "old_weight": 0.068,
+          "new_weight": 0.068,
+          "mix_contribution": 0.0,
+          "genuine_contribution": 0.0
+        },
+        "vehicle_equipment": {
+          "old_value": 0.25,
+          "new_value": 0.25,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 0.0025000000000000005,
+          "genuine_contribution": 0.0
+        },
+        "fraud_risk": {
+          "old_value": 0.24,
+          "new_value": 0.24,
+          "old_weight": 0.034,
+          "new_weight": 0.044000000000000004,
+          "mix_contribution": 0.0024000000000000002,
+          "genuine_contribution": 0.0
+        },
+        "safety_incidents": {
+          "old_value": 0.28,
+          "new_value": 0.28,
+          "old_weight": 0.014,
+          "new_weight": 0.024,
+          "mix_contribution": 0.0028000000000000004,
+          "genuine_contribution": 0.0
+        }
+      }
+    },
+    "total_solves_volume_bridge": {
+      "old_total": 28200.0,
+      "new_total": 29232.528000000002,
+      "total_delta": 1032.528000000002,
+      "overall_growth_rate": 0.036614468085106454,
+      "per_queue": {
+        "account_login": {
+          "old_volume": 5752.799999999999,
+          "new_volume": 5542.992,
+          "total_delta": -209.80799999999908,
+          "growth_component": 210.63571200000024,
+          "reallocation_component": -420.4437119999993
+        },
+        "trip_issues": {
+          "old_volume": 3835.2000000000003,
+          "new_volume": 3768.648,
+          "total_delta": -66.55200000000013,
+          "growth_component": 140.423808,
+          "reallocation_component": -206.97580800000014
+        },
+        "order_issues": {
+          "old_volume": 3835.2000000000003,
+          "new_volume": 3768.648,
+          "total_delta": -66.55200000000013,
+          "growth_component": 140.423808,
+          "reallocation_component": -206.97580800000014
+        },
+        "refunds_disputes": {
+          "old_volume": 3835.2000000000003,
+          "new_volume": 3988.6080000000006,
+          "total_delta": 153.40800000000036,
+          "growth_component": 140.423808,
+          "reallocation_component": 12.984192000000348
+        },
+        "payments_billing": {
+          "old_volume": 2876.3999999999996,
+          "new_volume": 2895.9839999999995,
+          "total_delta": 19.583999999999833,
+          "growth_component": 105.31785600000012,
+          "reallocation_component": -85.73385600000029
+        },
+        "technical_app_support": {
+          "old_volume": 1917.6000000000001,
+          "new_volume": 1994.3040000000003,
+          "total_delta": 76.70400000000018,
+          "growth_component": 70.211904,
+          "reallocation_component": 6.492096000000174
+        },
+        "onboarding_activation": {
+          "old_volume": 1917.6000000000001,
+          "new_volume": 1994.3040000000003,
+          "total_delta": 76.70400000000018,
+          "growth_component": 70.211904,
+          "reallocation_component": 6.492096000000174
+        },
+        "merchant_operations": {
+          "old_volume": 1917.6000000000001,
+          "new_volume": 1994.3040000000003,
+          "total_delta": 76.70400000000018,
+          "growth_component": 70.211904,
+          "reallocation_component": 6.492096000000174
+        },
+        "vehicle_equipment": {
+          "old_volume": 958.8000000000001,
+          "new_volume": 1290.432,
+          "total_delta": 331.63199999999995,
+          "growth_component": 35.105952,
+          "reallocation_component": 296.52604799999995
+        },
+        "fraud_risk": {
+          "old_volume": 958.8000000000001,
+          "new_volume": 1290.432,
+          "total_delta": 331.63199999999995,
+          "growth_component": 35.105952,
+          "reallocation_component": 296.52604799999995
+        },
+        "safety_incidents": {
+          "old_volume": 394.79999999999995,
+          "new_volume": 703.8720000000001,
+          "total_delta": 309.0720000000001,
+          "growth_component": 14.455392000000018,
+          "reallocation_component": 294.6166080000001
+        }
+      }
+    }
+  }
+}
