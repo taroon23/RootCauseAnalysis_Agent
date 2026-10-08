@@ -28,6 +28,15 @@ Month 4 — mixed: BOTH the Month-2-style mix shift (half magnitude) and a
           docs/step1_summary.md for why that's not generally possible) —
           their *actual* resulting splits are computed after generation and
           logged as observed, not targeted.
+Month 5 — baseline_null: a SECOND control month. Identical config/shares/
+          distributions to Month 1 (zero injected effects, zero overall
+          growth) but a fresh random draw. Exists specifically for Step 3's
+          anomaly detector: comparing Month 1 vs. Month 5 isolates pure
+          sampling noise with no confounding injected effect, which is
+          exactly what's needed to measure a true false-positive rate (no
+          other pair of months in this dataset is a clean "nothing happened"
+          comparison — every other month has *something* injected relative
+          to Month 1).
 """
 from __future__ import annotations
 
@@ -176,4 +185,17 @@ def build_scenarios(world: WorldConfig) -> list[ScenarioSpec]:
         calibration_target_queue=calibration_target_queue,
     )
 
-    return [baseline, mix_shift, genuine_change, mixed]
+    baseline_null = ScenarioSpec(
+        month_key="month_5_baseline_null",
+        month_label="2026-05",
+        scenario_type="baseline_null",
+        description=(
+            "Second control month: identical baseline physics to Month 1 (no mix-shift, "
+            "no genuine change, no overall growth), just a fresh random draw. Used by Step "
+            "3's anomaly detector to measure a true false-positive rate -- Month 1 vs. "
+            "Month 5 is the only pair of months in this dataset where NOTHING was injected "
+            "relative to each other, isolating pure sampling noise."
+        ),
+    )
+
+    return [baseline, mix_shift, genuine_change, mixed, baseline_null]
